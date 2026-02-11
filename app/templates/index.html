@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Utility Events Dashboard</title>
+</head>
+<body>
+
+<h1>Utility Events Dashboard</h1>
+
+<form method="get">
+    City:
+    <input type="text" name="city">
+
+    Category:
+    <select name="category">
+        <option value="All">All</option>
+        <option value="power">Power Failure</option>
+        <option value="water">Water Issue</option>
+        <option value="logistics">Logistics Disruption</option>
+        <option value="other">Other</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<hr>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Title</th>
+        <th>City</th>
+        <th>Category</th>
+        <th>Date</th>
+    </tr>
+
+    {% for row in rows %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

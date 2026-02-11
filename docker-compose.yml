@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+
+  db:
+    image: postgres:14
+    container_name: utility_db
+    restart: always
+    environment:
+      POSTGRES_DB: utility_events
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  utility_ingestion:
+    build: ./app
+    container_name: utility_ingestion
+    depends_on:
+      - db
+    command: python ingestion.py
+    restart: on-failure
+
+  utility_ui:
+    build: ./app
+    container_name: utility_ui
+    depends_on:
+      - db
+    command: python app.py
+    ports:
+      - "8000:8000"
+    restart: always
+
+volumes:
+  postgres_data:
